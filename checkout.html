@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout - Obya Orders</title>
+
+    <link rel="stylesheet" href="css/customer/style.css?v=1">
+
+</head>
+
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="logo">
+            OBYA ORDERS
+        </div>
+
+        <nav class="navigation">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="index.html#products">
+                Shop
+            </a>
+
+            <a href="index.html#categories">
+                Categories
+            </a>
+
+            <a href="#">
+                Contact
+            </a>
+
+        </nav>
+
+        <a href="cart.html" class="cart-button">
+            🛒 Cart
+
+            <span id="cart-count">
+                0
+            </span>
+
+        </a>
+
+    </header>
+
+
+
+    <!-- CHECKOUT PAGE -->
+
+    <main class="cart-page checkout-page">
+
+
+        <!-- PAGE HEADING -->
+
+        <div class="cart-heading">
+
+            <p class="cart-eyebrow">
+                OBYA ORDERS
+            </p>
+
+            <h1>
+                Checkout
+            </h1>
+
+            <p class="cart-subtitle">
+                Complete your details to place your order.
+            </p>
+
+        </div>
+
+
+
+        <div class="cart-layout checkout-layout">
+
+
+            <!-- CUSTOMER DETAILS -->
+
+            <section class="cart-products checkout-details">
+
+
+                <div class="cart-products-header">
+
+                    <span>
+                        Your Details
+                    </span>
+
+                    <span>
+                        01
+                    </span>
+
+                </div>
+
+
+
+                <form id="checkout-form">
+
+
+                    <!-- NAME -->
+
+                    <div class="checkout-field">
+
+                        <label for="customer-name">
+                            Name
+                        </label>
+
+                        <input type="text" id="customer-name" name="customerName" placeholder="Your First & Last name"
+                            autocomplete="name" required>
+
+                    </div>
+
+
+
+                    <!-- PHONE -->
+
+                    <div class="checkout-field">
+
+                        <label for="customer-phone">
+                            Mobile
+                        </label>
+
+                        <input type="tel" id="customer-phone" name="customerPhone" placeholder="Your mobile number"
+                            autocomplete="tel" required>
+
+                    </div>
+
+                    <!-- DELIVERY AREA -->
+
+                    <div class="checkout-field">
+
+                        <label for="delivery-area">
+                            Delivery Area
+                        </label>
+
+                        <select id="delivery-area" name="deliveryArea" required>
+
+                            <option value="" disabled selected>
+                                Select your delivery area
+                            </option>
+
+                            <option value="Amman">
+                                Amman
+                            </option>
+
+                            <option value="Zarqa">
+                                Zarqa
+                            </option>
+
+                            <option value="Irbid">
+                                Irbid
+                            </option>
+
+                            <option value="Balqa">
+                                Balqa
+                            </option>
+
+                            <option value="Madaba">
+                                Madaba
+                            </option>
+
+                            <option value="Jerash">
+                                Jerash
+                            </option>
+
+                            <option value="Ajloun">
+                                Ajloun
+                            </option>
+
+                            <option value="Mafraq">
+                                Mafraq
+                            </option>
+
+                            <option value="Karak">
+                                Karak
+                            </option>
+
+                            <option value="Tafilah">
+                                Tafilah
+                            </option>
+
+                            <option value="Ma'an">
+                                Ma'an
+                            </option>
+
+                            <option value="Aqaba">
+                                Aqaba
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- ADDRESS -->
+                    <div class="checkout-field">
+                        <label for="customer-address">Delivery Address
+                        </label>
+                        <input type="text" id="customer-address" name="customerAddress"
+                            placeholder="Area, Street name, Building number..." autocomplete="street-address" required>
+                    </div>
+
+
+
+                    <!-- PLACE ORDER -->
+
+                    <button type="submit" id="place-order-button" class="checkout-button">
+
+                        Place Order
+
+                        <span>
+                            →
+                        </span>
+
+                    </button>
+
+
+                </form>
+
+
+            </section>
+
+
+
+            <!-- ORDER SUMMARY -->
+
+            <aside id="cart-summary" class="cart-summary checkout-order-summary">
+
+
+                <div class="summary-header">
+
+                    <span>
+                        Order Summary
+                    </span>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Subtotal
+                    </span>
+
+                    <strong id="checkout-subtotal">
+                        0 JOD
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row delivery-summary-row">
+
+                    <div class="delivery-summary-label">
+
+                        <span>
+                            Delivery
+                        </span>
+
+                        <small id="delivery-helper">
+                            Select your delivery area to calculate
+                        </small>
+
+                    </div>
+
+                    <strong id="checkout-delivery">
+                        —
+                    </strong>
+
+                </div>
+
+
+
+
+
+                <div class="summary-divider">
+                </div>
+
+
+
+                <div class="summary-total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong id="checkout-total">
+                        0 JOD
+                    </strong>
+
+                </div>
+
+
+
+                <a href="cart.html" class="continue-shopping-bottom">
+                    ← Back to Cart
+                </a>
+
+
+            </aside>
+
+
+        </div>
+
+
+    </main>
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="footer-logo">
+            OBYA ORDERS
+        </div>
+
+        <p>
+            © 2026 Obya Orders. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <!-- SCRIPTS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/shared/supabase.js"></script>
+    <script src="js/shared/products.js?v=3"></script>
+    <script src="js/shared/store-data.js?v=2"></script>
+
+    <script>
+        window.obyaStoreDataReady.then(
+            function () {
+
+                const script =
+                    document.createElement(
+                        "script"
+                    );
+
+                script.src =
+                    "js/customer/checkout.js?v=4";
+
+                document.body.appendChild(
+                    script
+                );
+
+            }
+        );
+    </script>
+
+
+</body>
+
+</html>

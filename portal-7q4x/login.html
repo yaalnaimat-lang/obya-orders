@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+
+    <title>
+        Admin Login | Obya Orders
+    </title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: #f5f5f5;
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+            color: #171717;
+        }
+
+        .admin-login-card {
+            width: 100%;
+            max-width: 420px;
+            padding: 38px 34px;
+            background: #ffffff;
+            border: 1px solid #e5e5e5;
+            border-radius: 18px;
+            box-shadow:
+                0 12px 40px rgba(0, 0, 0, 0.06);
+        }
+
+        .admin-login-brand {
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        .admin-login-card h1 {
+            margin:
+                0 0 8px;
+            font-size: 28px;
+        }
+
+        .admin-login-description {
+            margin:
+                0 0 28px;
+            color: #777777;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .admin-login-field {
+            margin-bottom: 18px;
+        }
+
+        .admin-login-field label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .admin-login-field input {
+            width: 100%;
+            min-height: 48px;
+            padding:
+                11px 13px;
+            border: 1px solid #d9d9d9;
+            border-radius: 9px;
+            background: #ffffff;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .admin-login-field input:focus {
+            border-color: #171717;
+        }
+
+        .admin-login-button {
+            width: 100%;
+            min-height: 48px;
+            margin-top: 4px;
+            border: 0;
+            border-radius: 9px;
+            background: #171717;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .admin-login-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .admin-login-error {
+            display: none;
+            margin-top: 16px;
+            padding: 11px 12px;
+            border: 1px solid #efc2c2;
+            border-radius: 8px;
+            background: #fff0f0;
+            color: #a23f3f;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .admin-login-back {
+            display: block;
+            margin-top: 24px;
+            color: #777777;
+            font-size: 12px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .admin-login-back:hover {
+            color: #171717;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <main class="admin-login-card">
+
+        <div class="admin-login-brand">
+            OBYA ORDERS
+        </div>
+
+        <h1>
+            Admin Login
+        </h1>
+
+        <p class="admin-login-description">
+            Sign in to manage products,
+            categories and orders.
+        </p>
+
+
+        <form id="admin-login-form">
+
+            <div class="admin-login-field">
+
+                <label for="admin-login-email">
+                    Email
+                </label>
+
+                <input type="email" id="admin-login-email" autocomplete="email" required>
+
+            </div>
+
+
+            <div class="admin-login-field">
+
+                <label for="admin-login-password">
+                    Password
+                </label>
+
+                <input type="password" id="admin-login-password" autocomplete="current-password" required>
+
+            </div>
+
+
+            <button type="submit" class="admin-login-button" id="admin-login-button">
+                Sign In
+            </button>
+
+
+            <div class="admin-login-error" id="admin-login-error">
+            </div>
+
+        </form>
+
+    </main>
+
+
+    <!-- SUPABASE -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../js/shared/supabase.js"></script>
+
+
+    <script>
+
+        const adminLoginForm =
+            document.getElementById(
+                "admin-login-form"
+            );
+
+        const adminLoginEmail =
+            document.getElementById(
+                "admin-login-email"
+            );
+
+        const adminLoginPassword =
+            document.getElementById(
+                "admin-login-password"
+            );
+
+        const adminLoginButton =
+            document.getElementById(
+                "admin-login-button"
+            );
+
+        const adminLoginError =
+            document.getElementById(
+                "admin-login-error"
+            );
+
+
+        function showLoginError(
+            message
+        ) {
+
+            adminLoginError.textContent =
+                message;
+
+            adminLoginError.style.display =
+                "block";
+
+        }
+
+
+        async function checkExistingAdminSession() {
+
+            const {
+                data: {
+                    session
+                },
+                error: sessionError
+            } =
+                await obyaSupabase.auth
+                    .getSession();
+
+
+            if (
+                sessionError ||
+                !session
+            ) {
+                return;
+            }
+
+
+            const {
+                data: adminUser,
+                error: adminError
+            } =
+                await obyaSupabase
+                    .from(
+                        "admin_users"
+                    )
+                    .select(
+                        "user_id"
+                    )
+                    .eq(
+                        "user_id",
+                        session.user.id
+                    )
+                    .maybeSingle();
+
+
+            if (
+                !adminError &&
+                adminUser
+            ) {
+
+                window.location.replace(
+                    "./"
+                );
+
+                return;
+
+            }
+
+
+            // Existing session is not an Admin.
+            // Clear it before showing the login form.
+
+            await obyaSupabase.auth
+                .signOut({
+                    scope: "local"
+                });
+
+        }
+
+
+        adminLoginForm.addEventListener(
+            "submit",
+            async function (
+                event
+            ) {
+
+                event.preventDefault();
+
+
+                adminLoginError.style.display =
+                    "none";
+
+
+                adminLoginButton.disabled =
+                    true;
+
+                adminLoginButton.textContent =
+                    "Signing In...";
+
+
+                const email =
+                    adminLoginEmail.value
+                        .trim();
+
+                const password =
+                    adminLoginPassword.value;
+
+
+                const {
+                    data,
+                    error
+                } =
+                    await obyaSupabase.auth
+                        .signInWithPassword({
+                            email,
+                            password
+                        });
+
+
+                if (error) {
+
+                    showLoginError(
+                        "Incorrect email or password."
+                    );
+
+                    adminLoginButton.disabled =
+                        false;
+
+                    adminLoginButton.textContent =
+                        "Sign In";
+
+                    return;
+
+                }
+
+
+                const {
+                    data: adminUser,
+                    error: adminError
+                } =
+                    await obyaSupabase
+                        .from(
+                            "admin_users"
+                        )
+                        .select(
+                            "user_id"
+                        )
+                        .eq(
+                            "user_id",
+                            data.user.id
+                        )
+                        .maybeSingle();
+
+
+                if (
+                    adminError ||
+                    !adminUser
+                ) {
+
+                    await obyaSupabase.auth
+                        .signOut();
+
+
+                    showLoginError(
+                        "This account does not have Admin access."
+                    );
+
+
+                    adminLoginButton.disabled =
+                        false;
+
+                    adminLoginButton.textContent =
+                        "Sign In";
+
+                    return;
+
+                }
+
+
+                window.location.href =
+                    "./";
+
+            }
+        );
+
+
+        checkExistingAdminSession();
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Product | Obya Orders</title>
+
+    <link rel="stylesheet" href="css/customer/style.css?v=1">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="logo">
+            OBYA ORDERS
+        </div>
+
+        <nav class="navigation">
+            <a href="index.html">Home</a>
+            <a href="index.html">Shop</a>
+            <a href="index.html">Categories</a>
+        </nav>
+
+        <a href="cart.html" class="cart-button">
+            🛒 Cart
+            <span id="cart-count">0</span>
+        </a>
+
+    </header>
+
+
+    <!-- PRODUCT DETAILS -->
+
+    <main class="product-page">
+
+        <div class="product-gallery">
+
+            <div class="main-product-image">
+                <img id="main-product-image" src="" alt="">
+            </div>
+
+            <div class="thumbnail-container" id="thumbnails">
+            </div>
+
+        </div>
+
+
+        <div class="product-details">
+
+            <p class="product-category" id="product-category">
+            </p>
+
+            <h1 id="product-name">
+            </h1>
+
+            <div id="product-price">
+            </div>
+
+            <p class="product-description" id="product-description">
+            </p>
+
+            <!-- PRODUCT DETAILS -->
+
+            <div class="product-details-section" id="product-details-section">
+
+                <h3>
+                    Product Details
+                </h3>
+
+                <div class="product-details-list" id="product-details-list">
+                </div>
+
+            </div>
+
+
+            <!-- COLORS -->
+
+            <div class="product-option" id="color-section">
+
+                <h3>Color</h3>
+
+                <div class="option-buttons" id="color-options">
+                </div>
+                <p class="option-helper" id="color-helper">
+                    Please select a color
+                </p>
+
+            </div>
+
+
+            <!-- SIZES -->
+
+            <div class="product-option" id="size-section">
+
+                <h3>Size</h3>
+
+                <div class="option-buttons" id="size-options">
+                </div>
+
+                <p class="option-helper" id="size-helper">
+                    Please select a size
+                </p>
+
+
+            </div>
+
+
+            <!-- QUANTITY -->
+
+            <div class="product-option">
+
+                <h3>Quantity</h3>
+
+                <div class="quantity-selector">
+
+                    <button id="decrease">
+                        −
+                    </button>
+
+                    <span id="quantity">
+                        1
+                    </span>
+
+                    <button id="increase">
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ADD TO CART -->
+
+            <button class="add-to-cart product-add-button" id="add-product-to-cart">
+                Add to Cart
+            </button>
+
+
+            <!-- BACK -->
+
+            <a href="index.html" class="back-to-shop">
+                ← Continue Shopping
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/shared/supabase.js"></script>
+
+    <script src="js/shared/products.js?v=3"></script>
+
+    <script src="js/shared/store-data.js?v=2"></script>
+
+    <script>
+        window.obyaStoreDataReady.then(
+            function () {
+
+                const sharedScript =
+                    document.createElement(
+                        "script"
+                    );
+
+                sharedScript.src =
+                    "js/customer/script.js?v=2";
+
+                sharedScript.onload =
+                    function () {
+
+                        const productScript =
+                            document.createElement(
+                                "script"
+                            );
+
+                        productScript.src =
+                            "js/customer/product.js?v=2";
+
+                        document.body.appendChild(
+                            productScript
+                        );
+
+                    };
+
+                document.body.appendChild(
+                    sharedScript
+                );
+
+            }
+        );
+    </script>
+
+</body>
+
+</html>

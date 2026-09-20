@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+
+    <title>Admin | Obya Orders</title>
+
+    <link rel="stylesheet" href="../css/admin/admin.css?v=4">
+
+</head>
+
+<body style="visibility: hidden;">
+    <div class="admin-layout">
+
+
+        <!-- ==============================
+             SIDEBAR
+        ============================== -->
+
+        <aside class="admin-sidebar">
+
+            <div class="admin-brand">
+                OBYA ORDERS
+            </div>
+
+
+            <nav class="admin-nav">
+
+                <button class="admin-nav-item active" type="button" data-section="dashboard">
+                    Dashboard
+                </button>
+
+
+                <button class="admin-nav-item" type="button" data-section="products">
+                    Products
+                </button>
+
+
+                <button class="admin-nav-item" type="button" data-section="categories">
+                    Categories
+                </button>
+
+
+                <button class="admin-nav-item" type="button" data-section="orders">
+                    Orders
+                </button>
+
+            </nav>
+
+            <a href="#" class="admin-back-store" id="admin-logout-button">
+                Log Out
+            </a>
+
+        </aside>
+
+
+
+        <!-- ==============================
+             MAIN CONTENT
+        ============================== -->
+
+        <main class="admin-main">
+
+
+            <!-- ==============================
+                 DASHBOARD
+            ============================== -->
+
+            <section class="admin-section-view active" id="admin-dashboard">
+
+                <div class="admin-page-header">
+
+                    <div>
+
+                        <p class="admin-eyebrow">
+                            ADMIN PANEL
+                        </p>
+
+                        <h1>
+                            Dashboard
+                        </h1>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- STATS -->
+
+                <section class="admin-stats">
+
+
+                    <div class="admin-stat-card">
+
+                        <span>
+                            Products
+                        </span>
+
+                        <strong id="admin-products-count">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="admin-stat-card">
+
+                        <span>
+                            Categories
+                        </span>
+
+                        <strong id="admin-categories-count">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="admin-stat-card">
+
+                        <span>
+                            Orders
+                        </span>
+
+                        <strong id="admin-orders-count">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                </section>
+
+
+
+                <!-- DASHBOARD CARD -->
+
+                <section class="admin-panel-card">
+
+                    <div class="admin-panel-heading">
+
+                        <p>
+                            OVERVIEW
+                        </p>
+
+                        <h2>
+                            Welcome to Obya Admin
+                        </h2>
+
+                    </div>
+
+
+                    <div class="admin-empty-state">
+
+                        <h3>
+                            Admin panel is ready
+                        </h3>
+
+                        <p>
+                            Product, category and order management will be built here.
+                        </p>
+
+                    </div>
+
+                </section>
+
+            </section>
+
+
+
+            <!-- ==============================
+                 PRODUCTS
+            ============================== -->
+
+            <section class="admin-section-view" id="admin-products">
+
+                <div class="admin-page-header admin-page-header-row">
+
+                    <div>
+
+                        <p class="admin-eyebrow">
+                            ADMIN PANEL
+                        </p>
+
+                        <h1>
+                            Products
+                        </h1>
+
+                    </div>
+
+                    <button class="admin-primary-button" id="add-product-button" type="button">
+                        + Add Product
+                    </button>
+
+                </div>
+
+
+                <section class="admin-panel-card">
+
+                    <div class="admin-panel-heading">
+
+                        <p>
+                            PRODUCT MANAGEMENT
+                        </p>
+
+                        <h2>
+                            All Products
+                        </h2>
+
+                    </div>
+
+
+                    <div class="admin-products-list" id="admin-products-list">
+                    </div>
+
+                    <!-- ADD PRODUCT FORM -->
+
+                    <div class="admin-product-form-wrapper" id="admin-product-form-wrapper">
+
+                        <div class="admin-form-header">
+
+                            <div>
+                                <p>NEW PRODUCT</p>
+
+                                <h2>
+                                    Add Product
+                                </h2>
+                            </div>
+
+                            <button type="button" class="admin-form-close" id="close-product-form">
+                                ✕
+                            </button>
+
+                        </div>
+
+
+                        <form id="admin-product-form">
+
+
+                            <!-- BASIC INFORMATION -->
+
+                            <div class="admin-form-section">
+
+                                <div class="admin-form-section-title">
+
+                                    <h3>
+                                        Basic Information
+                                    </h3>
+
+                                    <p>
+                                        Main information shown to customers.
+                                    </p>
+
+                                </div>
+
+
+                                <div class="admin-form-grid">
+
+                                    <div class="admin-form-field admin-form-full">
+
+                                        <div class="admin-form-field">
+                                            <label for="admin-product-id">
+                                                Product ID
+                                            </label>
+
+                                            <input type="number" id="admin-product-id" min="1" step="1"
+                                                placeholder="Example: 1001" required>
+                                        </div>
+                                        <label for="admin-product-name">
+                                            Product Name
+                                        </label>
+
+                                        <input type="text" id="admin-product-name"
+                                            placeholder="Example: Classic Leather Wallet" required>
+
+                                    </div>
+
+
+                                    <div class="admin-form-field">
+
+                                        <label for="admin-product-category">
+                                            Category
+                                        </label>
+
+                                        <select id="admin-product-category" required>
+
+                                            <option value="">
+                                                Select category
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+
+                                    <div class="admin-form-field">
+
+                                        <label for="admin-product-stock">
+                                            Stock
+                                        </label>
+
+                                        <input type="number" id="admin-product-stock" min="0" placeholder="0" required>
+
+                                    </div>
+
+
+                                    <div class="admin-form-field">
+
+                                        <label for="admin-product-price">
+                                            Price (JOD)
+                                        </label>
+
+                                        <input type="number" id="admin-product-price" min="0" step="0.01"
+                                            placeholder="0.00" required>
+
+                                    </div>
+
+
+                                    <div class="admin-form-field">
+
+                                        <label for="admin-product-old-price">
+                                            Old Price (JOD)
+                                        </label>
+
+                                        <input type="number" id="admin-product-old-price" min="0" step="0.01"
+                                            placeholder="Optional">
+
+                                    </div>
+
+
+                                    <div class="admin-form-field admin-form-full">
+
+                                        <label for="admin-product-description">
+                                            Description
+                                        </label>
+
+                                        <textarea id="admin-product-description" rows="4"
+                                            placeholder="Write the product description..." required></textarea>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- SUBCATEGORIES -->
+
+                            <div class="admin-form-section">
+
+                                <div class="admin-form-section-title">
+
+                                    <h3>
+                                        Subcategories
+                                    </h3>
+
+                                    <p>
+                                        Select all subcategories where this product should appear.
+                                    </p>
+
+                                </div>
+
+                                <div class="admin-choice-list" id="admin-subcategory-options">
+                                    Select a category first.
+                                </div>
+
+                            </div>
+
+
+                            <!-- OPTIONS -->
+
+                            <div class="admin-form-section">
+
+                                <div class="admin-form-section-title">
+
+                                    <h3>
+                                        Product Options
+                                    </h3>
+
+                                    <p>
+                                        Add available colors and sizes when applicable.
+                                    </p>
+
+                                </div>
+
+
+                                <div class="admin-form-grid">
+
+                                    <div class="admin-form-field">
+
+                                        <label for="admin-product-colors">
+                                            Colors
+                                        </label>
+
+                                        <input type="text" id="admin-product-colors" placeholder="Black, Brown, Beige">
+
+                                        <small>
+                                            Separate colors with commas.
+                                        </small>
+
+                                    </div>
+
+
+                                    <div class="admin-form-field">
+
+                                        <label for="admin-product-sizes">
+                                            Sizes
+                                        </label>
+
+                                        <input type="text" id="admin-product-sizes" placeholder="S, M, L">
+
+                                        <small>
+                                            Separate sizes with commas.
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!-- IMAGES -->
+
+                            <div class="admin-form-section">
+
+                                <div class="admin-form-section-title">
+
+                                    <h3>
+                                        Product Images
+                                    </h3>
+
+                                    <p>
+                                        Choose one main product image and add additional images for the product gallery.
+                                    </p>
+
+                                </div>
+
+
+                                <!-- MAIN IMAGE -->
+
+                                <div class="admin-image-upload-group">
+
+                                    <div class="admin-image-upload-heading">
+
+                                        <div>
+
+                                            <h4>
+                                                Main Image
+                                            </h4>
+
+                                            <p>
+                                                Used as the product cover image across the store.
+                                            </p>
+
+                                        </div>
+
+                                        <span class="admin-required-badge">
+                                            Required
+                                        </span>
+
+                                    </div>
+
+
+                                    <label class="admin-image-upload-box" for="admin-main-image">
+
+                                        <strong>
+                                            + Upload Main Image
+                                        </strong>
+
+                                        <span>
+                                            JPG, PNG or WEBP
+                                        </span>
+
+                                    </label>
+
+
+                                    <input type="file" id="admin-main-image" accept="image/jpeg,image/png,image/webp"
+                                        hidden>
+
+
+                                    <div class="admin-main-image-preview" id="admin-main-image-preview">
+                                    </div>
+
+                                </div>
+
+
+                                <!-- ADDITIONAL IMAGES -->
+
+                                <div class="admin-image-upload-group">
+
+                                    <div class="admin-image-upload-heading">
+
+                                        <div>
+
+                                            <h4>
+                                                Additional Images
+                                            </h4>
+
+                                            <p>
+                                                These appear as additional images in the product gallery.
+                                            </p>
+
+                                        </div>
+
+                                        <span class="admin-optional-badge">
+                                            Optional
+                                        </span>
+
+                                    </div>
+
+
+                                    <label class="admin-image-upload-box" for="admin-additional-images">
+
+                                        <strong>
+                                            + Add Gallery Images
+                                        </strong>
+
+                                        <span>
+                                            You can select multiple images
+                                        </span>
+
+                                    </label>
+
+
+                                    <input type="file" id="admin-additional-images"
+                                        accept="image/jpeg,image/png,image/webp" multiple hidden>
+
+
+                                    <div class="admin-additional-images-preview" id="admin-additional-images-preview">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- PRODUCT DETAILS -->
+
+                            <div class="admin-form-section">
+
+                                <div class="admin-form-section-title">
+
+                                    <h3>
+                                        Product Details
+                                    </h3>
+
+                                    <p>
+                                        Material, dimensions, style and other specifications.
+                                    </p>
+
+                                </div>
+
+
+                                <div class="admin-details-builder" id="admin-product-details">
+
+                                    <div class="admin-detail-rows" id="admin-detail-rows">
+                                    </div>
+
+
+                                    <button type="button" class="admin-add-detail-button" id="admin-add-detail-button">
+                                        + Add Detail
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- ACTIONS -->
+
+                            <div class="admin-form-actions">
+
+                                <button type="button" class="admin-secondary-button" id="cancel-product-button">
+                                    Cancel
+                                </button>
+
+                                <button type="submit" class="admin-primary-button">
+                                    Save Product
+                                </button>
+
+                            </div>
+
+
+                        </form>
+
+                    </div>
+
+                </section>
+
+            </section>
+
+            <!-- ==============================
+                             CATEGORIES
+                             ============================== -->
+
+            <section class="admin-section-view" id="admin-categories">
+
+                <div class="admin-page-header admin-page-header-row">
+
+                    <div>
+
+                        <p class="admin-eyebrow">
+                            ADMIN PANEL
+                        </p>
+
+                        <h1>
+                            Categories
+                        </h1>
+
+                    </div>
+
+
+                    <button class="admin-primary-button" id="add-category-button" type="button">
+                        + Add Category
+                    </button>
+
+                </div>
+
+
+                <section class="admin-panel-card">
+
+                    <div class="admin-panel-heading">
+
+                        <p>
+                            CATEGORY MANAGEMENT
+                        </p>
+
+                        <h2>
+                            All Categories
+                        </h2>
+
+                    </div>
+
+
+                    <div class="admin-categories-list" id="admin-categories-list">
+                    </div>
+
+                </section>
+                <!-- ADD / EDIT CATEGORY FORM -->
+
+                <div class="admin-product-form-wrapper" id="admin-category-form-wrapper">
+
+                    <div class="admin-form-header">
+
+                        <div>
+
+                            <p>
+                                CATEGORY
+                            </p>
+
+                            <h2 id="admin-category-form-title">
+                                Add Category
+                            </h2>
+
+                        </div>
+
+
+                        <button type="button" class="admin-form-close" id="close-category-form">
+                            ✕
+                        </button>
+
+                    </div>
+
+
+                    <form id="admin-category-form">
+
+
+                        <!-- CATEGORY INFORMATION -->
+
+                        <div class="admin-form-section">
+
+                            <div class="admin-form-section-title">
+
+                                <h3>
+                                    Category Information
+                                </h3>
+
+                                <p>
+                                    Main information shown on the store.
+                                </p>
+
+                            </div>
+
+
+                            <div class="admin-form-grid">
+
+                                <div class="admin-form-field admin-form-full">
+
+                                    <label for="admin-category-name">
+                                        Category Name
+                                    </label>
+
+                                    <input type="text" id="admin-category-name" placeholder="Example: Bags" required>
+
+                                </div>
+
+
+                                <div class="admin-form-field admin-form-full">
+
+                                    <label for="admin-category-subcategories">
+                                        Subcategories
+                                    </label>
+
+                                    <input type="text" id="admin-category-subcategories"
+                                        placeholder="Example: Women, Men, Kids">
+
+                                    <small>
+                                        Separate subcategories with commas.
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- CATEGORY IMAGE -->
+
+                        <div class="admin-form-section">
+
+                            <div class="admin-form-section-title">
+
+                                <h3>
+                                    Category Image
+                                </h3>
+
+                                <p>
+                                    This image will appear on the category card.
+                                </p>
+
+                            </div>
+
+
+                            <div class="admin-image-upload-group">
+
+                                <label class="admin-image-upload-box" for="admin-category-image">
+
+                                    <strong>
+                                        + Upload Category Image
+                                    </strong>
+
+                                    <span>
+                                        JPG, PNG or WEBP
+                                    </span>
+
+                                </label>
+
+
+                                <input type="file" id="admin-category-image" accept="image/jpeg,image/png,image/webp"
+                                    hidden>
+
+
+                                <div class="admin-main-image-preview" id="admin-category-image-preview">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ACTIONS -->
+
+                        <div class="admin-form-actions">
+
+                            <button type="button" class="admin-secondary-button" id="cancel-category-button">
+                                Cancel
+                            </button>
+
+                            <button type="submit" class="admin-primary-button">
+                                Save Category
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ==============================
+     ORDERS
+============================== -->
+
+            <section class="admin-section-view" id="admin-orders">
+
+                <div class="admin-page-header">
+
+                    <div>
+
+                        <p class="admin-eyebrow">
+                            ADMIN PANEL
+                        </p>
+
+                        <h1>
+                            Orders
+                        </h1>
+
+                    </div>
+
+                </div>
+
+
+                <section class="admin-panel-card">
+
+                    <div class="admin-panel-heading">
+
+                        <p>
+                            ORDER MANAGEMENT
+                        </p>
+
+                        <h2>
+                            All Orders
+                        </h2>
+
+                    </div>
+
+
+                    <div class="admin-orders-list" id="admin-orders-list">
+                    </div>
+
+                </section>
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+
+
+    <!-- ==============================
+         SCRIPTS
+    ============================== -->
+
+    <!-- ==============================
+     SCRIPTS
+============================== -->
+
+    <!-- SUPABASE LIBRARY -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- OBYA SUPABASE CONNECTION -->
+    <script src="../js/shared/supabase.js"></script>
+
+    <!-- ADMIN AUTHENTICATION -->
+    <script src="../js/admin/admin-auth.js?v=3"></script>
+
+    <!-- SHARED DATA -->
+    <script src="../js/shared/products.js?v=3"></script>
+
+    <script src="../js/shared/categories.js?v=1"></script>
+
+    <!-- ADMIN -->
+    <script src="../js/admin/admin.js?v=31"></script>
+
+
+</body>
+
+</html>
