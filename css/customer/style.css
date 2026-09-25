@@ -1941,3 +1941,66 @@ button {
     opacity: 0.35;
     cursor: not-allowed;
 }
+
+/* ==============================
+   MOBILE BUTTON NORMALIZATION
+   ============================== */
+
+button,
+input[type="button"],
+input[type="submit"] {
+    -webkit-appearance: none;
+    appearance: none;
+    color: inherit;
+    font: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* ==============================
+   MOBILE BUTTON COLORS
+   ============================== */
+
+@media (max-width: 768px) {
+
+    /* CATEGORY SUBCATEGORIES */
+
+    .subcategory-button {
+        color: #222222 !important;
+        -webkit-text-fill-color: #222222;
+    }
+
+    .subcategory-button.active {
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff;
+    }
+
+
+    /* PRODUCT COLOR / SIZE OPTIONS */
+
+    .option-button {
+        color: #222222 !important;
+        -webkit-text-fill-color: #222222;
+    }
+
+    .option-button.selected {
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff;
+    }
+
+
+    /* PRODUCT QUANTITY */
+
+    .quantity-selector button {
+        color: #222222 !important;
+        -webkit-text-fill-color: #222222;
+    }
+
+
+    /* CART QUANTITY */
+
+    .cart-quantity button {
+        color: #222222 !important;
+        -webkit-text-fill-color: #222222;
+    }
+
+}
