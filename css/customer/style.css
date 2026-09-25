@@ -2004,3 +2004,24 @@ input[type="submit"] {
     }
 
 }
+
+/* ==============================
+   MOBILE PRODUCT IMAGE
+   ============================== */
+
+@media (max-width: 768px) {
+
+    .main-product-image {
+        height: auto;
+        background: transparent;
+        overflow: hidden;
+    }
+
+    .main-product-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: contain;
+    }
+
+}
