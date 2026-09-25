@@ -540,3 +540,203 @@ document
 
 
 displayCart();
+
+// ==============================
+// HEADER CATEGORIES DROPDOWN
+// ==============================
+
+function displayCategoriesDropdown() {
+
+    const dropdown =
+        document.getElementById(
+            "categories-dropdown"
+        );
+
+    const button =
+        document.getElementById(
+            "categories-menu-button"
+        );
+
+
+    if (!dropdown || !button) {
+        return;
+    }
+
+
+    dropdown.innerHTML =
+        "";
+
+
+    categories.forEach(
+        category => {
+
+            const link =
+                document.createElement(
+                    "a"
+                );
+
+
+            link.href =
+                `category.html?category=${category.slug}`;
+
+
+            link.textContent =
+                category.name;
+
+
+            dropdown.appendChild(
+                link
+            );
+
+        }
+    );
+
+
+    button.addEventListener(
+        "click",
+        function (event) {
+
+            event.stopPropagation();
+
+
+            const isOpen =
+                dropdown.classList.toggle(
+                    "open"
+                );
+
+
+            button.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
+
+        }
+    );
+
+
+    document.addEventListener(
+        "click",
+        function () {
+
+            dropdown.classList.remove(
+                "open"
+            );
+
+
+            button.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        }
+    );
+
+}
+
+
+displayCategoriesDropdown();
+
+// ==============================
+// HEADER CATEGORIES DROPDOWN
+// ==============================
+
+function displayCategoriesDropdown() {
+
+    const dropdown =
+        document.getElementById(
+            "categories-dropdown"
+        );
+
+    const button =
+        document.getElementById(
+            "categories-menu-button"
+        );
+
+
+    if (!dropdown || !button) {
+        return;
+    }
+
+
+    dropdown.innerHTML = "";
+
+
+    categories.forEach(
+        category => {
+
+            const link =
+                document.createElement(
+                    "a"
+                );
+
+
+            link.href =
+                `category.html?category=${category.slug}`;
+
+
+            link.textContent =
+                category.name;
+
+
+            dropdown.appendChild(
+                link
+            );
+
+        }
+    );
+
+
+    button.addEventListener(
+        "click",
+        function (event) {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+
+            const isOpen =
+                dropdown.classList.toggle(
+                    "open"
+                );
+
+
+            button.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
+
+        }
+    );
+
+
+    dropdown.addEventListener(
+        "click",
+        function (event) {
+
+            event.stopPropagation();
+
+        }
+    );
+
+
+    document.addEventListener(
+        "click",
+        function () {
+
+            dropdown.classList.remove(
+                "open"
+            );
+
+
+            button.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        }
+    );
+
+}
+
+
+displayCategoriesDropdown();
