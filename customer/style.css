@@ -2111,3 +2111,79 @@ input[type="submit"] {
         border-bottom: none;
     }
 }
+/* ==============================
+   MOBILE CATEGORIES NAV BUTTON
+   ============================== */
+
+@media (max-width: 768px) {
+
+    .nav-dropdown-button {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 12px;
+
+        padding: 8px 10px 8px 14px;
+
+        background: #f7f7f7;
+
+        border: 1px solid #e5e5e5;
+        border-radius: 30px;
+
+        color: #222222 !important;
+        -webkit-text-fill-color: #222222;
+
+        font-size: 14px;
+        font-weight: 500;
+
+        cursor: pointer;
+    }
+
+    .nav-dropdown-button::after {
+        display: none !important;
+    }
+
+    .nav-dropdown-label {
+        line-height: 1;
+    }
+
+    .nav-dropdown-icon {
+        width: 25px;
+        height: 25px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        background: #ffffff;
+
+        border: 1px solid #dddddd;
+        border-radius: 50%;
+
+        transition:
+            transform 0.2s ease,
+            background 0.2s ease;
+    }
+
+    .nav-dropdown-icon span {
+        width: 6px;
+        height: 6px;
+
+        border-right: 1.5px solid #222222;
+        border-bottom: 1.5px solid #222222;
+
+        transform:
+            rotate(45deg)
+            translate(-1px, -1px);
+    }
+
+    .nav-dropdown-button[aria-expanded="true"]
+    .nav-dropdown-icon {
+        transform: rotate(180deg);
+        background: #eeeeee;
+    }
+
+}
