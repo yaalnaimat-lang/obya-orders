@@ -1053,6 +1053,7 @@ button {
         padding: 25px;
     }
 }
+
 /* ==============================
    CHECKOUT FORM
    ============================== */
@@ -1135,6 +1136,7 @@ button {
 
     margin-top: 4px;
 }
+
 /* DELIVERY AREA */
 
 .checkout-field select {
@@ -1197,6 +1199,7 @@ button {
 
     color: #999;
 }
+
 /* ==============================
    ORDER CONFIRMATION
    ============================== */
@@ -1275,6 +1278,7 @@ button {
 
     text-decoration: none;
 }
+
 /* ==============================
    HEADER CATEGORY DROPDOWN
    ============================== */
@@ -1505,14 +1509,14 @@ button {
     }
 
     .category-grid {
-    gap: 12px;
-}
+        gap: 12px;
+    }
 
-.category-image span {
-    left: 12px;
-    bottom: 12px;
-    font-size: 15px;
-}
+    .category-image span {
+        left: 12px;
+        bottom: 12px;
+        font-size: 15px;
+    }
 
 }
 
@@ -1545,6 +1549,7 @@ button {
     opacity: 1;
     border-color: #111;
 }
+
 /* ==============================
    PRODUCT DETAILS
    ============================== */
@@ -1620,21 +1625,22 @@ button {
     }
 
     .product-details-list {
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
 
-    gap: 10px;
-}
+        gap: 10px;
+    }
 
     .product-detail-row {
-    min-height: 72px;
+        min-height: 72px;
 
-    padding: 14px;
+        padding: 14px;
 
-    justify-content: center;
+        justify-content: center;
+    }
+
 }
 
-}
 /* ==============================
    PRODUCT OPTIONS POLISH
    ============================== */
@@ -1717,6 +1723,7 @@ button {
     font-size: 14px;
     font-weight: 600;
 }
+
 /* ==============================
    PRODUCT ADD TO CART
    ============================== */
@@ -1809,11 +1816,9 @@ button {
     inset: 0;
 
     background:
-        linear-gradient(
-            to top,
+        linear-gradient(to top,
             rgba(0, 0, 0, 0.48),
-            rgba(0, 0, 0, 0.02) 60%
-        );
+            rgba(0, 0, 0, 0.02) 60%);
 }
 
 .category-image span {
@@ -1892,6 +1897,7 @@ button {
     }
 
 }
+
 /* ==============================
    CART QUANTITY - COMPACT
 ============================== */
@@ -2025,6 +2031,7 @@ input[type="submit"] {
     }
 
 }
+
 /* ==============================
    MOBILE CATEGORY DROPDOWN
    ============================== */
@@ -2032,7 +2039,7 @@ input[type="submit"] {
 @media (max-width: 768px) {
 
     .nav-dropdown {
-        position: static;
+        position: relative;
     }
 
     .nav-dropdown-button {
@@ -2051,8 +2058,7 @@ input[type="submit"] {
         border-bottom: 1.5px solid currentColor;
 
         transform:
-            rotate(45deg)
-            translateY(-2px);
+            rotate(45deg) translateY(-2px);
 
         transition:
             transform 0.2s ease;
@@ -2060,16 +2066,19 @@ input[type="submit"] {
 
     .nav-dropdown-button[aria-expanded="true"]::after {
         transform:
-            rotate(225deg)
-            translate(-2px, -2px);
+            rotate(225deg) translate(-2px, -2px);
     }
 
     .nav-dropdown-menu {
         position: absolute;
 
-        top: calc(100% + 10px);
-        left: 20px;
-        right: 20px;
+        top: calc(100% + 12px);
+        left: 50%;
+        right: auto;
+
+        width: 240px;
+
+        transform: translateX(-50%);
 
         width: auto;
         min-width: 0;
@@ -2111,6 +2120,7 @@ input[type="submit"] {
         border-bottom: none;
     }
 }
+
 /* ==============================
    MOBILE CATEGORIES NAV BUTTON
    ============================== */
@@ -2176,17 +2186,16 @@ input[type="submit"] {
         border-bottom: 1.5px solid #222222;
 
         transform:
-            rotate(45deg)
-            translate(-1px, -1px);
+            rotate(45deg) translate(-1px, -1px);
     }
 
-    .nav-dropdown-button[aria-expanded="true"]
-    .nav-dropdown-icon {
+    .nav-dropdown-button[aria-expanded="true"] .nav-dropdown-icon {
         transform: rotate(180deg);
         background: #eeeeee;
     }
 
 }
+
 @media (max-width: 768px) {
 
     .nav-dropdown-icon {
@@ -2215,13 +2224,103 @@ input[type="submit"] {
         transform: translateY(-2px);
     }
 
-    .nav-dropdown-icon > span {
+    .nav-dropdown-icon>span {
         display: none;
     }
 
-    .nav-dropdown-button[aria-expanded="true"]
-    .nav-dropdown-icon {
+    .nav-dropdown-button[aria-expanded="true"] .nav-dropdown-icon {
         transform: rotate(180deg);
+    }
+
+}
+
+/* =========================================
+   FINAL MOBILE HEADER CATEGORIES FIX
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    /* Make Categories match the other nav links */
+
+    .navigation .nav-dropdown-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        gap: 6px;
+
+        padding: 0 !important;
+
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+
+        font-family: inherit;
+        font-size: 14px !important;
+        font-weight: normal !important;
+
+        color: #222222 !important;
+        -webkit-text-fill-color: #222222;
+
+        line-height: normal;
+    }
+
+
+    /* Remove all previous arrow attempts */
+
+    .navigation .nav-dropdown-button::after {
+        display: none !important;
+        content: none !important;
+    }
+
+
+    .navigation .nav-dropdown-icon {
+        width: 8px !important;
+        height: 8px !important;
+
+        display: inline-block !important;
+
+        margin-left: 2px;
+
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+
+        position: relative;
+
+        transform: none;
+    }
+
+
+    .navigation .nav-dropdown-icon::before {
+        content: "" !important;
+
+        position: absolute;
+
+        width: 6px;
+        height: 6px;
+
+        top: 0;
+        left: 0;
+
+        border-right: 1.5px solid #222222;
+        border-bottom: 1.5px solid #222222;
+
+        transform: rotate(45deg);
+
+        transition: transform 0.2s ease;
+    }
+
+
+    .navigation .nav-dropdown-icon>span {
+        display: none !important;
+    }
+
+
+    /* Arrow points upward when menu is open */
+
+    .navigation .nav-dropdown-button[aria-expanded="true"] .nav-dropdown-icon::before {
+        transform: rotate(225deg);
     }
 
 }
