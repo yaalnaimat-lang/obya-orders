@@ -368,7 +368,7 @@ async function loadProductsFromSupabase() {
                 "products"
             )
             .select(
-                "id, name, description, category, subcategories, price, old_price, stock, colors, sizes, details, images"
+                "id, name, description, category, subcategories, price, old_price, stock, sort_order, colors, sizes, details, images"
             )
             .order(
                 "id",
@@ -426,6 +426,13 @@ async function loadProductsFromSupabase() {
 
                 stock:
                     Number(product.stock || 0),
+
+                sortOrder:
+                    product.sort_order === null
+                        ? null
+                        : Number(
+                            product.sort_order
+                        ),
 
                 colors:
                     Array.isArray(product.colors)
@@ -1037,14 +1044,14 @@ function addProductDetailRow(
 
     const valueInput =
         document.createElement(
-            "input"
+            "textarea"
         );
 
-    valueInput.type =
-        "text";
-
+        
     valueInput.className =
         "admin-detail-value";
+
+        valueInput.rows = 3;
 
     valueInput.placeholder =
         "Value";
@@ -1435,6 +1442,21 @@ if (adminProductForm) {
                         .value
                 );
 
+            const sortOrderInput =
+                document.getElementById(
+                    "admin-product-sort-order"
+                );
+
+            const sortOrderValue =
+                sortOrderInput
+                    ? sortOrderInput.value.trim()
+                    : "";
+
+            const sortOrder =
+                sortOrderValue === ""
+                    ? null
+                    : Number(sortOrderValue);
+
 
             const price =
                 Number(
@@ -1595,6 +1617,21 @@ if (adminProductForm) {
 
                 return;
 
+            }
+
+            if (
+                sortOrder !== null &&
+                (
+                    !Number.isInteger(sortOrder) ||
+                    sortOrder < 0
+                )
+            ) {
+
+                alert(
+                    "Please enter a valid whole-number order."
+                );
+
+                return;
             }
 
 
@@ -1801,8 +1838,12 @@ if (adminProductForm) {
                     stock:
                         stock,
 
+                    sortOrder:
+                        sortOrder,
+
                     images:
                         productImages,
+
 
                     details:
                         details,
@@ -1867,6 +1908,11 @@ if (adminProductForm) {
 
                                 stock:
                                     Number(newProduct.stock || 0),
+
+                                sort_order:
+                                    newProduct.sortOrder !== null
+                                        ? Number(newProduct.sortOrder)
+                                        : null,
 
                                 colors:
                                     Array.isArray(
@@ -2354,6 +2400,11 @@ document.addEventListener(
             "admin-product-stock"
         ).value =
             productToEdit.stock ?? "";
+
+        document.getElementById(
+            "admin-product-sort-order"
+        ).value =
+            productToEdit.sortOrder ?? "";
 
 
         document.getElementById(

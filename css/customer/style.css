@@ -370,17 +370,15 @@ button {
 
 .main-product-image {
     width: 100%;
-    height: 600px;
-
-    background: #eeeeee;
-
+    height: auto;
+    background: transparent;
     overflow: hidden;
 }
 
 .main-product-image img {
     width: 100%;
-    height: 100%;
-
+    height: auto;
+    display: block;
     object-fit: contain;
 }
 
@@ -448,6 +446,8 @@ button {
     line-height: 1.7;
 
     margin-bottom: 35px;
+
+    white-space: pre-line;
 }
 
 
@@ -1612,6 +1612,8 @@ button {
 
     text-align: left;
     line-height: 1.4;
+
+    white-space: pre-line;
 }
 
 
@@ -2323,4 +2325,22 @@ input[type="submit"] {
         transform: rotate(225deg);
     }
 
+}
+
+/* ==============================
+   FINAL PRODUCT IMAGE FIX
+   ============================== */
+
+.main-product-image {
+    width: 100% !important;
+    height: auto !important;
+    background: transparent !important;
+    overflow: hidden;
+}
+
+.main-product-image img {
+    width: 100% !important;
+    height: auto !important;
+    display: block;
+    object-fit: contain;
 }

@@ -7,7 +7,22 @@
 
     <title>Product | Obya Orders</title>
 
-    <link rel="stylesheet" href="css/customer/style.css?v=3">
+    <link rel="stylesheet" href="css/customer/style.css?v=5">
+    <style>
+    .main-product-image {
+        width: 100% !important;
+        height: auto !important;
+        background: transparent !important;
+        overflow: hidden !important;
+    }
+
+    .main-product-image #main-product-image {
+        width: 100% !important;
+        height: auto !important;
+        display: block !important;
+        object-fit: contain !important;
+    }
+</style>
 </head>
 
 <body>
@@ -157,7 +172,7 @@
 
     <script src="js/shared/products.js?v=3"></script>
 
-    <script src="js/shared/store-data.js?v=2"></script>
+    <script src="js/shared/store-data.js?v=3"></script>
 
     <script>
         window.obyaStoreDataReady.then(
