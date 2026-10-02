@@ -22,7 +22,14 @@ window.obyaStoreDataReady =
                     obyaSupabase
                         .from("products")
                         .select(
-                            "id, name, description, category, subcategories, price, old_price, stock, colors, sizes, details, images"
+                            "id, name, description, category, subcategories, price, old_price, stock, sort_order, colors, sizes, details, images"
+                        )
+                        .order(
+                            "sort_order",
+                            {
+                                ascending: true,
+                                nullsFirst: false
+                            }
                         )
                         .order(
                             "id",
@@ -203,6 +210,13 @@ window.obyaStoreDataReady =
                                         0
                                     ),
 
+                                sortOrder:
+                                    product.sort_order === null
+                                        ? null
+                                        : Number(
+                                            product.sort_order
+                                        ),
+
                                 colors:
                                     Array.isArray(
                                         product.colors
@@ -229,6 +243,26 @@ window.obyaStoreDataReady =
                                         : []
 
                             })
+                        )
+                        .sort(
+                            (a, b) => {
+
+                                const aOrder =
+                                    a.sortOrder === null
+                                        ? Number.MAX_SAFE_INTEGER
+                                        : a.sortOrder;
+
+                                const bOrder =
+                                    b.sortOrder === null
+                                        ? Number.MAX_SAFE_INTEGER
+                                        : b.sortOrder;
+
+                                if (aOrder !== bOrder) {
+                                    return aOrder - bOrder;
+                                }
+
+                                return Number(a.id) - Number(b.id);
+                            }
                         );
 
 
