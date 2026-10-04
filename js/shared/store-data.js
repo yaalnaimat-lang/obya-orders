@@ -16,7 +16,7 @@ window.obyaStoreDataReady =
                     obyaSupabase
                         .from("categories")
                         .select(
-                            "slug, name, image, subcategories"
+                            "slug, name, image, subcategories, sort_order"
                         ),
 
                     obyaSupabase
@@ -61,13 +61,6 @@ window.obyaStoreDataReady =
                 Array.isArray(categories)
             ) {
 
-                const originalCategoryOrder =
-                    categories.map(
-                        category =>
-                            category.slug
-                    );
-
-
                 const databaseCategories =
                     (categoriesResult.data || [])
                         .map(
@@ -87,69 +80,46 @@ window.obyaStoreDataReady =
                                         category.subcategories
                                     )
                                         ? category.subcategories
-                                        : []
+                                        : [],
+
+                                sortOrder:
+                                    category.sort_order === null
+                                        ? null
+                                        : Number(
+                                            category.sort_order
+                                        )
 
                             })
-                        );
-
-
-                const categoryMap =
-                    new Map(
-                        databaseCategories.map(
-                            category => [
-                                category.slug,
-                                category
-                            ]
                         )
-                    );
+                        .sort(
+                            (a, b) => {
 
+                                const aOrder =
+                                    a.sortOrder === null
+                                        ? Number.MAX_SAFE_INTEGER
+                                        : a.sortOrder;
 
-                const orderedCategories =
-                    [];
+                                const bOrder =
+                                    b.sortOrder === null
+                                        ? Number.MAX_SAFE_INTEGER
+                                        : b.sortOrder;
 
+                                if (aOrder !== bOrder) {
+                                    return aOrder - bOrder;
+                                }
 
-                originalCategoryOrder.forEach(
-                    slug => {
-
-                        if (
-                            categoryMap.has(
-                                slug
-                            )
-                        ) {
-
-                            orderedCategories.push(
-                                categoryMap.get(
-                                    slug
-                                )
-                            );
-
-                            categoryMap.delete(
-                                slug
-                            );
-
-                        }
-
-                    }
-                );
-
-
-                categoryMap.forEach(
-                    category => {
-
-                        orderedCategories.push(
-                            category
+                                return a.name.localeCompare(
+                                    b.name
+                                );
+                            }
                         );
-
-                    }
-                );
 
 
                 categories.splice(
                     0,
                     categories.length,
-                    ...orderedCategories
+                    ...databaseCategories
                 );
-
             }
 
 

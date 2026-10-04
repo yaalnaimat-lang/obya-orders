@@ -1047,11 +1047,11 @@ function addProductDetailRow(
             "textarea"
         );
 
-        
+
     valueInput.className =
         "admin-detail-value";
 
-        valueInput.rows = 3;
+    valueInput.rows = 3;
 
     valueInput.placeholder =
         "Value";
@@ -2718,7 +2718,7 @@ async function loadCategoriesFromSupabase() {
                 "categories"
             )
             .select(
-                "slug, name, image, subcategories"
+                "slug, name, image, subcategories, sort_order"
             );
 
 
@@ -2755,6 +2755,15 @@ async function loadCategoriesFromSupabase() {
                     )
                         ? category.subcategories
                         : []
+
+                ,
+
+                sortOrder:
+                    category.sort_order === null
+                        ? null
+                        : Number(
+                            category.sort_order
+                        )
             })
         )
     );
@@ -3035,6 +3044,21 @@ if (adminCategoryForm) {
                     )
                     .value;
 
+            const categorySortOrderInput =
+                document.getElementById(
+                    "admin-category-sort-order"
+                );
+
+            const categorySortOrderValue =
+                categorySortOrderInput
+                    ? categorySortOrderInput.value.trim()
+                    : "";
+
+            const categorySortOrder =
+                categorySortOrderValue === ""
+                    ? null
+                    : Number(categorySortOrderValue);
+
 
             const subcategories =
                 subcategoriesValue
@@ -3060,11 +3084,25 @@ if (adminCategoryForm) {
 
             }
 
+            if (
+                categorySortOrder !== null &&
+                (
+                    !Number.isInteger(categorySortOrder) ||
+                    categorySortOrder < 0
+                )
+            ) {
+
+                alert(
+                    "Please enter a valid whole-number order."
+                );
+
+                return;
+            }
+
 
             const editingCategorySlug =
                 adminCategoryForm.dataset
                     .editCategorySlug || null;
-
 
             const duplicateCategory =
                 categories.find(
@@ -3212,6 +3250,9 @@ if (adminCategoryForm) {
                     subcategories:
                         subcategories,
 
+                    sortOrder:
+                        categorySortOrder,
+
                     adminCreated:
                         categoryBeingEdited
                             ? (
@@ -3246,6 +3287,9 @@ if (adminCategoryForm) {
 
                                 subcategories:
                                     subcategories,
+
+                                sort_order:
+                                    categorySortOrder,
 
                                 updated_at:
                                     new Date()
@@ -3490,6 +3534,13 @@ document.addEventListener(
                     .subcategories ||
                 []
             ).join(", ");
+
+        document
+            .getElementById(
+                "admin-category-sort-order"
+            )
+            .value =
+            categoryToEdit.sortOrder ?? "";
 
 
         // FORM TITLE
