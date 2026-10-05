@@ -433,80 +433,8 @@ if (
 
 
 // ==============================
-// HEADER CATEGORIES DROPDOWN
-// ==============================
-
-function displayCategoriesDropdown() {
-
-    const dropdown =
-        document.getElementById(
-            "categories-dropdown"
-        );
-
-    const button =
-        document.getElementById(
-            "categories-menu-button"
-        );
-
-
-    if (!dropdown || !button) {
-        return;
-    }
-
-
-    dropdown.innerHTML = "";
-
-
-    categories.forEach(category => {
-
-        const link =
-            document.createElement("a");
-
-        link.href =
-            `category.html?category=${category.slug}`;
-
-        link.textContent =
-            category.name;
-
-        dropdown.appendChild(
-            link
-        );
-
-    });
-
-
-    button.addEventListener(
-        "click",
-        function (event) {
-
-            event.stopPropagation();
-
-            dropdown.classList.toggle(
-                "open"
-            );
-
-        }
-    );
-
-
-    document.addEventListener(
-        "click",
-        function () {
-
-            dropdown.classList.remove(
-                "open"
-            );
-
-        }
-    );
-
-}
-
-
-// ==============================
 // START
 // ==============================
 
-displayCategoriesDropdown();
 displayCategoryProducts();
 updateCartCount();

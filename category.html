@@ -5,11 +5,17 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Category | Obya Orders</title>
 
-    <link rel="stylesheet" href="css/customer/style.css?v=2">
+    <link
+        rel="stylesheet"
+        href="css/customer/style.css?v=13"
+    >
 
 </head>
 
@@ -32,37 +38,62 @@
                 Home
             </a>
 
-            <a href="index.html#products">
+
+            <a href="shop.html">
                 Shop
             </a>
 
 
             <div class="nav-dropdown">
 
-                <button class="nav-dropdown-button" id="categories-menu-button" type="button">
-                    Categories
-                    <span>⌄</span>
+                <button
+                    class="nav-dropdown-button"
+                    id="categories-menu-button"
+                    type="button"
+                    aria-expanded="false"
+                >
+
+                    <span class="nav-dropdown-label">
+                        Categories
+                    </span>
+
+                    <span
+                        class="nav-dropdown-icon"
+                        aria-hidden="true"
+                    >
+                        <span></span>
+                    </span>
+
                 </button>
 
-                <div class="nav-dropdown-menu" id="categories-dropdown">
+
+                <div
+                    class="nav-dropdown-menu"
+                    id="categories-dropdown"
+                >
                 </div>
 
             </div>
 
 
-            <a href="#">
+            <a href="index.html">
                 Contact
             </a>
 
         </nav>
 
 
-        <a href="cart.html" class="cart-button">
+        <a
+            href="cart.html"
+            class="cart-button"
+        >
+
             🛒 Cart
 
             <span id="cart-count">
                 0
             </span>
+
         </a>
 
     </header>
@@ -90,7 +121,10 @@
 
         <!-- SUBCATEGORIES -->
 
-        <div class="subcategory-list" id="subcategory-list">
+        <div
+            class="subcategory-list"
+            id="subcategory-list"
+        >
         </div>
 
 
@@ -99,11 +133,17 @@
 
         <section class="products category-products">
 
-            <div class="product-grid" id="category-product-grid">
+            <div
+                class="product-grid"
+                id="category-product-grid"
+            >
             </div>
 
 
-            <div class="category-empty" id="category-empty">
+            <div
+                class="category-empty"
+                id="category-empty"
+            >
 
                 <div class="category-empty-icon">
                     ♡
@@ -117,7 +157,10 @@
                     New products are coming soon.
                 </p>
 
-                <a href="index.html#categories" class="category-empty-button">
+                <a
+                    href="index.html#categories"
+                    class="category-empty-button"
+                >
                     Explore Other Categories
                 </a>
 
@@ -146,33 +189,58 @@
 
 
 
+    <!-- SCRIPTS -->
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script src="js/shared/supabase.js"></script>
 
     <script src="js/shared/categories.js?v=1"></script>
+
     <script src="js/shared/products.js?v=3"></script>
 
-    <script src="js/shared/store-data.js?v=5"></script>
+    <script src="js/shared/store-data.js?v=6"></script>
+
 
     <script>
+
         window.obyaStoreDataReady.then(
             function () {
 
-                const script =
+                const sharedScript =
                     document.createElement(
                         "script"
                     );
 
-                script.src =
-                    "js/customer/category.js?v=1";
+                sharedScript.src =
+                    "js/customer/script.js?v=4";
+
+
+                sharedScript.onload =
+                    function () {
+
+                        const categoryScript =
+                            document.createElement(
+                                "script"
+                            );
+
+                        categoryScript.src =
+                            "js/customer/category.js?v=4";
+
+                        document.body.appendChild(
+                            categoryScript
+                        );
+
+                    };
+
 
                 document.body.appendChild(
-                    script
+                    sharedScript
                 );
 
             }
         );
+
     </script>
 
 
