@@ -2,91 +2,191 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Product | Obya Orders</title>
 
-    <link rel="stylesheet" href="css/customer/style.css?v=5">
-    <style>
-    .main-product-image {
-        width: 100% !important;
-        height: auto !important;
-        background: transparent !important;
-        overflow: hidden !important;
-    }
+    <link
+        rel="stylesheet"
+        href="css/customer/style.css?v=13"
+    >
 
-    .main-product-image #main-product-image {
-        width: 100% !important;
-        height: auto !important;
-        display: block !important;
-        object-fit: contain !important;
-    }
-</style>
+    <style>
+
+        .main-product-image {
+            width: 100% !important;
+            height: auto !important;
+            background: transparent !important;
+            overflow: hidden !important;
+        }
+
+        .main-product-image #main-product-image {
+            width: 100% !important;
+            height: auto !important;
+            display: block !important;
+            object-fit: contain !important;
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-    <!-- HEADER -->
-    <header class="header">
+<!-- HEADER -->
 
-        <div class="logo">
-            OBYA ORDERS
-        </div>
+<header class="header">
 
-        <nav class="navigation">
-            <a href="index.html">Home</a>
-            <a href="index.html">Shop</a>
-            <a href="index.html">Categories</a>
-        </nav>
+    <div class="logo">
+        OBYA ORDERS
+    </div>
 
-        <a href="cart.html" class="cart-button">
-            🛒 Cart
-            <span id="cart-count">0</span>
+
+    <nav class="navigation">
+
+        <a href="index.html">
+            Home
         </a>
 
-    </header>
 
+        <a href="shop.html">
+            Shop
+        </a>
+
+
+        <div class="nav-dropdown">
+
+            <button
+                class="nav-dropdown-button"
+                id="categories-menu-button"
+                type="button"
+                aria-expanded="false"
+            >
+
+                <span class="nav-dropdown-label">
+                    Categories
+                </span>
+
+                <span
+                    class="nav-dropdown-icon"
+                    aria-hidden="true"
+                >
+                    <span></span>
+                </span>
+
+            </button>
+
+
+            <div
+                class="nav-dropdown-menu"
+                id="categories-dropdown"
+            >
+            </div>
+
+        </div>
+
+
+        <a href="index.html">
+            Contact
+        </a>
+
+    </nav>
+
+
+    <a
+        href="cart.html"
+        class="cart-button"
+    >
+
+        🛒 Cart
+
+        <span id="cart-count">
+            0
+        </span>
+
+    </a>
+
+</header>
 
     <!-- PRODUCT DETAILS -->
 
     <main class="product-page">
 
+
+        <!-- PRODUCT GALLERY -->
+
         <div class="product-gallery">
 
             <div class="main-product-image">
-                <img id="main-product-image" src="" alt="">
+
+                <img
+                    id="main-product-image"
+                    src=""
+                    alt=""
+                >
+
             </div>
 
-            <div class="thumbnail-container" id="thumbnails">
+
+            <div
+                class="thumbnail-container"
+                id="thumbnails"
+            >
             </div>
 
         </div>
 
 
+        <!-- PRODUCT INFORMATION -->
+
         <div class="product-details">
 
-            <p class="product-category" id="product-category">
+
+            <p
+                class="product-category"
+                id="product-category"
+            >
             </p>
+
 
             <h1 id="product-name">
             </h1>
 
+
             <div id="product-price">
             </div>
 
-            <p class="product-description" id="product-description">
+
+            <p
+                class="product-description"
+                id="product-description"
+            >
             </p>
+
 
             <!-- PRODUCT DETAILS -->
 
-            <div class="product-details-section" id="product-details-section">
+            <div
+                class="product-details-section"
+                id="product-details-section"
+            >
 
                 <h3>
                     Product Details
                 </h3>
 
-                <div class="product-details-list" id="product-details-list">
+
+                <div
+                    class="product-details-list"
+                    id="product-details-list"
+                >
                 </div>
 
             </div>
@@ -94,13 +194,27 @@
 
             <!-- COLORS -->
 
-            <div class="product-option" id="color-section">
+            <div
+                class="product-option"
+                id="color-section"
+            >
 
-                <h3>Color</h3>
+                <h3>
+                    Color
+                </h3>
 
-                <div class="option-buttons" id="color-options">
+
+                <div
+                    class="option-buttons"
+                    id="color-options"
+                >
                 </div>
-                <p class="option-helper" id="color-helper">
+
+
+                <p
+                    class="option-helper"
+                    id="color-helper"
+                >
                     Please select a color
                 </p>
 
@@ -109,17 +223,29 @@
 
             <!-- SIZES -->
 
-            <div class="product-option" id="size-section">
+            <div
+                class="product-option"
+                id="size-section"
+            >
 
-                <h3>Size</h3>
+                <h3>
+                    Size
+                </h3>
 
-                <div class="option-buttons" id="size-options">
+
+                <div
+                    class="option-buttons"
+                    id="size-options"
+                >
                 </div>
 
-                <p class="option-helper" id="size-helper">
+
+                <p
+                    class="option-helper"
+                    id="size-helper"
+                >
                     Please select a size
                 </p>
-
 
             </div>
 
@@ -128,19 +254,30 @@
 
             <div class="product-option">
 
-                <h3>Quantity</h3>
+                <h3>
+                    Quantity
+                </h3>
+
 
                 <div class="quantity-selector">
 
-                    <button id="decrease">
+                    <button
+                        id="decrease"
+                        type="button"
+                    >
                         −
                     </button>
+
 
                     <span id="quantity">
                         1
                     </span>
 
-                    <button id="increase">
+
+                    <button
+                        id="increase"
+                        type="button"
+                    >
                         +
                     </button>
 
@@ -151,30 +288,45 @@
 
             <!-- ADD TO CART -->
 
-            <button class="add-to-cart product-add-button" id="add-product-to-cart">
+            <button
+                class="add-to-cart product-add-button"
+                id="add-product-to-cart"
+                type="button"
+            >
                 Add to Cart
             </button>
 
 
-            <!-- BACK -->
+            <!-- CONTINUE SHOPPING -->
 
-            <a href="index.html" class="back-to-shop">
+            <a
+                href="shop.html"
+                class="back-to-shop"
+            >
                 ← Continue Shopping
             </a>
+
 
         </div>
 
     </main>
 
 
+    <!-- SCRIPTS -->
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script src="js/shared/supabase.js"></script>
+
+    <script src="js/shared/categories.js?v=1"></script>
 
     <script src="js/shared/products.js?v=3"></script>
 
-    <script src="js/shared/store-data.js?v=5"></script>
+    <script src="js/shared/store-data.js?v=6"></script>
+
 
     <script>
+
         window.obyaStoreDataReady.then(
             function () {
 
@@ -184,7 +336,8 @@
                     );
 
                 sharedScript.src =
-                    "js/customer/script.js?v=2";
+                    "js/customer/script.js?v=3";
+
 
                 sharedScript.onload =
                     function () {
@@ -203,13 +356,16 @@
 
                     };
 
+
                 document.body.appendChild(
                     sharedScript
                 );
 
             }
         );
+
     </script>
+
 
 </body>
 
