@@ -543,7 +543,14 @@ if (addProductButton) {
 
     addProductButton.addEventListener(
         "click",
-        openProductForm
+        function () {
+
+            window.open(
+                "product.html",
+                "_blank"
+            );
+
+        }
     );
 
 }
@@ -2003,6 +2010,20 @@ if (adminProductForm) {
                     "Product saved successfully."
                 );
 
+                document.dispatchEvent(
+                    new CustomEvent(
+                        "obya:product-saved",
+                        {
+                            detail: {
+                                id:
+                                    Number(
+                                        newProduct.id
+                                    )
+                            }
+                        }
+                    )
+                );
+
 
             } catch (error) {
 
@@ -2134,384 +2155,58 @@ document.addEventListener(
 // EDIT PRODUCT
 // ==============================
 
-document.addEventListener(
-    "click",
-    function (event) {
+const isStandaloneProductEditor =
+    window.location.pathname.endsWith(
+        "/product.html"
+    );
 
-        if (
-            !event.target.matches(
-                "[data-edit-product-id]"
-            )
-        ) {
-            return;
-        }
 
+if (!isStandaloneProductEditor) {
 
-        event.preventDefault();
+    document.addEventListener(
+        "click",
+        function (event) {
 
-        event.stopPropagation();
-
-
-        const editButton =
-            event.target;
-
-
-
-        const productId =
-            Number(
-                editButton.dataset
-                    .editProductId
-            );
-
-
-        const productToEdit =
-            products.find(
-                product =>
-                    Number(product.id) ===
-                    productId
-            );
-
-
-        if (!productToEdit) {
-            return;
-        }
-
-        // ==============================
-        // PRODUCT ID
-        // ==============================
-
-        const productIdInput =
-            document.getElementById(
-                "admin-product-id"
-            );
-
-
-        if (productIdInput) {
-
-            productIdInput.value =
-                productToEdit.id;
-
-            productIdInput.readOnly =
-                true;
-
-        }
-
-        existingEditImages =
-            Array.isArray(
-                productToEdit.images
-            )
-                ? [...productToEdit.images]
-                : [];
-
-        // ==============================
-        // SHOW EXISTING IMAGES IN EDIT
-        // ==============================
-
-        function renderExistingEditImages() {
-
-            // MAIN IMAGE
-            if (mainImagePreview) {
-
-                mainImagePreview.innerHTML =
-                    "";
-
-
-                if (
-                    existingEditImages.length > 0 &&
-                    existingEditImages[0]
-                ) {
-
-                    const mainImage =
-                        existingEditImages[0];
-
-
-                    const mainImageSource =
-                        (
-                            mainImage.startsWith("data:") ||
-                            mainImage.startsWith("http://") ||
-                            mainImage.startsWith("https://")
-                        )
-                            ? mainImage
-                            : `../${mainImage}`;
-
-
-                    const mainPreview =
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    mainPreview.className =
-                        "admin-image-preview-item main";
-
-
-                    mainPreview.innerHTML = `
-
-                <img
-                    src="${mainImageSource}"
-                    alt="Main product image"
-                >
-
-                <span class="admin-main-badge">
-                    MAIN
-                </span>
-
-                <button
-                    type="button"
-                    class="admin-remove-image"
-                >
-                    ✕
-                </button>
-
-            `;
-
-
-                    const removeMainButton =
-                        mainPreview.querySelector(
-                            ".admin-remove-image"
-                        );
-
-
-                    removeMainButton.addEventListener(
-                        "click",
-                        function () {
-
-                            existingEditImages[0] =
-                                null;
-
-
-                            renderExistingEditImages();
-
-                        }
-                    );
-
-
-                    mainImagePreview.appendChild(
-                        mainPreview
-                    );
-
-                }
-
-            }
-
-
-            // ADDITIONAL IMAGES
-            if (additionalImagesPreview) {
-
-                additionalImagesPreview.innerHTML =
-                    "";
-
-
-                existingEditImages
-                    .slice(1)
-                    .forEach(
-                        (image, index) => {
-
-                            const imageSource =
-                                (
-                                    image.startsWith("data:") ||
-                                    image.startsWith("http://") ||
-                                    image.startsWith("https://")
-                                )
-                                    ? image
-                                    : `../${image}`;
-
-
-                            const preview =
-                                document.createElement(
-                                    "div"
-                                );
-
-
-                            preview.className =
-                                "admin-image-preview-item";
-
-
-                            preview.innerHTML = `
-
-                        <img
-                            src="${imageSource}"
-                            alt="Product gallery image"
-                        >
-
-                        <button
-                            type="button"
-                            class="admin-remove-image"
-                        >
-                            ✕
-                        </button>
-
-                    `;
-
-
-                            const removeButton =
-                                preview.querySelector(
-                                    ".admin-remove-image"
-                                );
-
-
-                            removeButton.addEventListener(
-                                "click",
-                                function () {
-
-                                    existingEditImages.splice(
-                                        index + 1,
-                                        1
-                                    );
-
-
-                                    renderExistingEditImages();
-
-                                }
-                            );
-
-
-                            additionalImagesPreview.appendChild(
-                                preview
-                            );
-
-                        }
-                    );
-
-            }
-
-        }
-
-
-        renderExistingEditImages();
-
-        openProductForm();
-
-
-        document.getElementById(
-            "admin-product-name"
-        ).value =
-            productToEdit.name || "";
-
-
-        adminProductCategory.value =
-            productToEdit.category || "";
-
-
-        displayProductSubcategories();
-
-
-        document.getElementById(
-            "admin-product-stock"
-        ).value =
-            productToEdit.stock ?? "";
-
-        document.getElementById(
-            "admin-product-sort-order"
-        ).value =
-            productToEdit.sortOrder ?? "";
-
-
-        document.getElementById(
-            "admin-product-price"
-        ).value =
-            productToEdit.price ?? "";
-
-
-        document.getElementById(
-            "admin-product-old-price"
-        ).value =
-            productToEdit.oldPrice ?? "";
-
-
-        document.getElementById(
-            "admin-product-description"
-        ).value =
-            productToEdit.description || "";
-
-
-        document.getElementById(
-            "admin-product-colors"
-        ).value =
-            Array.isArray(
-                productToEdit.colors
-            )
-                ? productToEdit.colors.join(", ")
-                : "";
-
-
-        document.getElementById(
-            "admin-product-sizes"
-        ).value =
-            Array.isArray(
-                productToEdit.sizes
-            )
-                ? productToEdit.sizes.join(", ")
-                : "";
-
-
-
-        const subcategoryCheckboxes =
-            document.querySelectorAll(
-                'input[name="product-subcategory"]'
-            );
-
-
-        subcategoryCheckboxes.forEach(
-            checkbox => {
-
-                checkbox.checked =
-                    Array.isArray(
-                        productToEdit.subcategories
-                    ) &&
-                    productToEdit.subcategories.includes(
-                        checkbox.value
-                    );
-
-            }
-        );
-
-
-        if (adminDetailRows) {
-
-            adminDetailRows.innerHTML =
-                "";
-
-
-            const productDetails =
-                productToEdit.details ||
-                productToEdit.Details ||
-                {};
-
-
-            const detailEntries =
-                Object.entries(
-                    productDetails
+            const editButton =
+                event.target.closest(
+                    "button[data-edit-product-id]"
                 );
 
 
-            if (detailEntries.length > 0) {
-
-                detailEntries.forEach(
-                    ([label, value]) => {
-
-                        addProductDetailRow(
-                            label,
-                            value
-                        );
-
-                    }
-                );
-
-            } else {
-
-                addProductDetailRow();
-
+            if (!editButton) {
+                return;
             }
 
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+
+            const productId =
+                Number(
+                    editButton.dataset
+                        .editProductId
+                );
+
+
+            if (
+                !Number.isInteger(productId) ||
+                productId <= 0
+            ) {
+                return;
+            }
+
+
+            window.open(
+                `product.html?id=${productId}`,
+                "_blank"
+            );
+
         }
+    );
 
-
-        adminProductForm.dataset.editProductId =
-            productId;
-
-    }
-);
+}
 
 // ==============================
 // DISPLAY ADMIN CATEGORIES
