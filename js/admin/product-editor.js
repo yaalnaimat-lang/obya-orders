@@ -151,31 +151,7 @@ function bindEditorCloseActions() {
 
 }
 
-
-function findProductForEditor() {
-
-    if (
-        !Number.isInteger(
-            editorProductId
-        ) ||
-        editorProductId <= 0
-    ) {
-        return null;
-    }
-
-
-    return products.find(
-        product =>
-            Number(product.id) ===
-            editorProductId
-    ) || null;
-
-}
-
-
-function waitForProductAndOpenEdit(
-    attemptsRemaining = 80
-) {
+async function loadProductForEditor() {
 
     if (
         !Number.isInteger(
@@ -187,259 +163,318 @@ function waitForProductAndOpenEdit(
     }
 
 
-    const productToEdit =
-        findProductForEditor();
-
-
-    if (productToEdit) {
-
-        const productIdInput =
-            document.getElementById(
-                "admin-product-id"
-            );
-
-        if (productIdInput) {
-
-            productIdInput.value =
-                productToEdit.id;
-
-            productIdInput.readOnly =
-                true;
-
-        }
-
-
-        const nameInput =
-            document.getElementById(
-                "admin-product-name"
-            );
-
-        if (nameInput) {
-
-            nameInput.value =
-                productToEdit.name || "";
-
-        }
-
-
-        if (adminProductCategory) {
-
-            adminProductCategory.value =
-                productToEdit.category || "";
-
-            displayProductSubcategories();
-
-        }
-
-
-        const stockInput =
-            document.getElementById(
-                "admin-product-stock"
-            );
-
-        if (stockInput) {
-
-            stockInput.value =
-                productToEdit.stock ?? "";
-
-        }
-
-
-        const sortInput =
-            document.getElementById(
-                "admin-product-sort-order"
-            );
-
-        if (sortInput) {
-
-            sortInput.value =
-                productToEdit.sortOrder ?? "";
-
-        }
-
-
-        const priceInput =
-            document.getElementById(
-                "admin-product-price"
-            );
-
-        if (priceInput) {
-
-            priceInput.value =
-                productToEdit.price ?? "";
-
-        }
-
-
-        const oldPriceInput =
-            document.getElementById(
-                "admin-product-old-price"
-            );
-
-        if (oldPriceInput) {
-
-            oldPriceInput.value =
-                productToEdit.oldPrice ?? "";
-
-        }
-
-
-        const descriptionInput =
-            document.getElementById(
-                "admin-product-description"
-            );
-
-        if (descriptionInput) {
-
-            descriptionInput.value =
-                productToEdit.description || "";
-
-        }
-
-
-        const colorsInput =
-            document.getElementById(
-                "admin-product-colors"
-            );
-
-        if (colorsInput) {
-
-            colorsInput.value =
-                Array.isArray(
-                    productToEdit.colors
-                )
-                    ? productToEdit.colors.join(
-                        ", "
-                    )
-                    : "";
-
-        }
-
-
-        const sizesInput =
-            document.getElementById(
-                "admin-product-sizes"
-            );
-
-        if (sizesInput) {
-
-            sizesInput.value =
-                Array.isArray(
-                    productToEdit.sizes
-                )
-                    ? productToEdit.sizes.join(
-                        ", "
-                    )
-                    : "";
-
-        }
-
-
-        document
-            .querySelectorAll(
-                'input[name="product-subcategory"]'
+    const {
+        data,
+        error
+    } =
+        await obyaSupabase
+            .from(
+                "products"
             )
-            .forEach(
-                checkbox => {
-
-                    checkbox.checked =
-                        Array.isArray(
-                            productToEdit.subcategories
-                        ) &&
-                        productToEdit.subcategories.includes(
-                            checkbox.value
-                        );
-
-                }
-            );
-
-
-        if (adminDetailRows) {
-
-            adminDetailRows.innerHTML =
-                "";
-
-            const productDetails =
-                productToEdit.details ||
-                productToEdit.Details ||
-                {};
-
-            const detailEntries =
-                Object.entries(
-                    productDetails
-                );
-
-
-            if (
-                detailEntries.length > 0
-            ) {
-
-                detailEntries.forEach(
-                    ([label, value]) => {
-
-                        addProductDetailRow(
-                            label,
-                            value
-                        );
-
-                    }
-                );
-
-            } else {
-
-                addProductDetailRow();
-
-            }
-
-        }
-
-
-        existingEditImages =
-            Array.isArray(
-                productToEdit.images
+            .select(
+                "id, name, description, category, subcategories, price, old_price, stock, sort_order, colors, sizes, details, images"
             )
-                ? [...productToEdit.images]
-                : [];
+            .eq(
+                "id",
+                editorProductId
+            )
+            .single();
 
 
-        renderStandaloneExistingImages();
+    if (
+        error ||
+        !data
+    ) {
 
-
-        if (adminProductForm) {
-
-            adminProductForm.dataset
-                .editProductId =
-                String(editorProductId);
-
-        }
-
-
-        return;
-    }
-
-
-    if (attemptsRemaining <= 0) {
+        console.error(
+            "Could not load product:",
+            error
+        );
 
         alert(
             "The product could not be loaded."
         );
 
-        closeProductEditor();
-
         return;
+
     }
 
 
-    setTimeout(
-        function () {
+    const productToEdit = {
 
-            waitForProductAndOpenEdit(
-                attemptsRemaining - 1
+        id:
+            Number(data.id),
+
+        name:
+            data.name || "",
+
+        description:
+            data.description || "",
+
+        category:
+            data.category || "",
+
+        subcategories:
+            Array.isArray(
+                data.subcategories
+            )
+                ? data.subcategories
+                : [],
+
+        price:
+            Number(
+                data.price || 0
+            ),
+
+        oldPrice:
+            data.old_price === null
+                ? null
+                : Number(
+                    data.old_price
+                ),
+
+        stock:
+            Number(
+                data.stock || 0
+            ),
+
+        sortOrder:
+            data.sort_order === null
+                ? null
+                : Number(
+                    data.sort_order
+                ),
+
+        colors:
+            Array.isArray(
+                data.colors
+            )
+                ? data.colors
+                : [],
+
+        sizes:
+            Array.isArray(
+                data.sizes
+            )
+                ? data.sizes
+                : [],
+
+        details:
+            data.details || {},
+
+        images:
+            Array.isArray(
+                data.images
+            )
+                ? data.images
+                : []
+
+    };
+
+
+    const productIdInput =
+        document.getElementById(
+            "admin-product-id"
+        );
+
+    if (productIdInput) {
+
+        productIdInput.value =
+            productToEdit.id;
+
+        productIdInput.readOnly =
+            true;
+
+    }
+
+
+    const nameInput =
+        document.getElementById(
+            "admin-product-name"
+        );
+
+    if (nameInput) {
+
+        nameInput.value =
+            productToEdit.name;
+
+    }
+
+
+    if (adminProductCategory) {
+
+        adminProductCategory.value =
+            productToEdit.category;
+
+        displayProductSubcategories();
+
+    }
+
+
+    const stockInput =
+        document.getElementById(
+            "admin-product-stock"
+        );
+
+    if (stockInput) {
+
+        stockInput.value =
+            productToEdit.stock;
+
+    }
+
+
+    const sortInput =
+        document.getElementById(
+            "admin-product-sort-order"
+        );
+
+    if (sortInput) {
+
+        sortInput.value =
+            productToEdit.sortOrder ?? "";
+
+    }
+
+
+    const priceInput =
+        document.getElementById(
+            "admin-product-price"
+        );
+
+    if (priceInput) {
+
+        priceInput.value =
+            productToEdit.price;
+
+    }
+
+
+    const oldPriceInput =
+        document.getElementById(
+            "admin-product-old-price"
+        );
+
+    if (oldPriceInput) {
+
+        oldPriceInput.value =
+            productToEdit.oldPrice ?? "";
+
+    }
+
+
+    const descriptionInput =
+        document.getElementById(
+            "admin-product-description"
+        );
+
+    if (descriptionInput) {
+
+        descriptionInput.value =
+            productToEdit.description;
+
+    }
+
+
+    const colorsInput =
+        document.getElementById(
+            "admin-product-colors"
+        );
+
+    if (colorsInput) {
+
+        colorsInput.value =
+            productToEdit.colors.join(
+                ", "
             );
 
-        },
-        100
-    );
+    }
+
+
+    const sizesInput =
+        document.getElementById(
+            "admin-product-sizes"
+        );
+
+    if (sizesInput) {
+
+        sizesInput.value =
+            productToEdit.sizes.join(
+                ", "
+            );
+
+    }
+
+
+    document
+        .querySelectorAll(
+            'input[name="product-subcategory"]'
+        )
+        .forEach(
+            checkbox => {
+
+                checkbox.checked =
+                    productToEdit
+                        .subcategories
+                        .includes(
+                            checkbox.value
+                        );
+
+            }
+        );
+
+
+    if (adminDetailRows) {
+
+        adminDetailRows.innerHTML =
+            "";
+
+        const detailEntries =
+            Object.entries(
+                productToEdit.details
+            );
+
+
+        if (
+            detailEntries.length > 0
+        ) {
+
+            detailEntries.forEach(
+                ([label, value]) => {
+
+                    addProductDetailRow(
+                        label,
+                        value
+                    );
+
+                }
+            );
+
+        } else {
+
+            addProductDetailRow();
+
+        }
+
+    }
+
+
+    existingEditImages =
+        [...productToEdit.images];
+
+
+    renderStandaloneExistingImages();
+
+
+    if (adminProductForm) {
+
+        adminProductForm.dataset
+            .editProductId =
+            String(
+                editorProductId
+            );
+
+    }
 
 }
 
@@ -660,7 +695,7 @@ window.obyaAdminReady.then(
         }
 
 
-        waitForProductAndOpenEdit();
+        loadProductForEditor();
 
     }
 );
